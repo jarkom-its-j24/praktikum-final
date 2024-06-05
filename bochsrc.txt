@@ -1,0 +1,264 @@
+# Modified by Sister 19
+# Modified by Sisop 24
+# You may now use double quotes around pathnames, in case
+# your pathname includes spaces.
+
+#=======================================================================
+# ROMIMAGE:
+# The ROM BIOS controls what the PC does when it first powers on.
+# Normally, you can use a precompiled BIOS in the source or binary
+# distribution called BIOS-bochs-latest. The ROM BIOS is usually loaded
+# starting at address 0xf0000, and it is exactly 64k long. Another option
+# is 128k BIOS which is loaded at address 0xe0000.
+# You can also use the environment variable $BXSHARE to specify the
+# location of the BIOS.
+# The usage of external large BIOS images (up to 512k) at memory top is
+# now supported, but we still recommend to use the BIOS distributed with
+# Bochs. Now the start address can be calculated from image size.
+#=======================================================================
+romimage: file=$BXSHARE/BIOS-bochs-latest
+
+#=======================================================================
+# CPU:
+# This defines cpu-related parameters inside Bochs:
+#
+#  COUNT:
+#  Set the number of processors:cores per processor:threads per core
+#  when Bochs is compiled for SMP emulation.
+#  Bochs currently supports up to 8 threads running simultaniosly.
+#  If Bochs is compiled without SMP support, it won't accept values
+#  different from 1.
+#
+#  QUANTUM:
+#  Maximum amount of instructions allowed to execute by processor before
+#  returning control to another cpu. This option exists only in Bochs
+#  binary compiled with SMP support.
+#
+#  RESET_ON_TRIPLE_FAULT:
+#  Reset the CPU when triple fault occur (highly recommended) rather than
+#  PANIC. Remember that if you trying to continue after triple fault the
+#  simulation will be completely bogus !
+#
+#  IPS:
+#  Emulated Instructions Per Second.  This is the number of IPS that bochs
+#  is capable of running on your machine. You can recompile Bochs with
+#  --enable-show-ips option enabled, to find your workstation's capability.
+#  Measured IPS value will then be logged into your log file or status bar
+#  (if supported by the gui).
+#
+#  IPS is used to calibrate many time-dependent events within the bochs
+#  simulation.  For example, changing IPS affects the frequency of VGA
+#  updates, the duration of time before a key starts to autorepeat, and
+#  the measurement of BogoMips and other benchmarks.
+#
+#  Examples:
+#
+#  Bochs Machine/Compiler                                 Mips
+# ____________________________________________________________________
+#  2.2.6 2.6Ghz Intel Core 2 Duo with WinXP/g++ 3.4      21 to 25 Mips
+#  2.2.6 2.1Ghz Athlon XP with Linux 2.6/g++ 3.4         12 to 15 Mips
+#  2.0.1 1.6Ghz Intel P4 with Win2000/g++ 3.3             5 to  7 Mips
+#  1.4   650Mhz Athlon K-7 with Linux 2.4.4/egcs-2.91.66  2 to  2.5 Mips
+#  1.4   400Mhz Pentium II with Linux 2.0.36/egcs-1.0.3   1 to  1.8 Mips
+#=======================================================================
+cpu: count=1, ips=10000000, reset_on_triple_fault=1
+
+#=======================================================================
+# MEGS
+# Set the number of Megabytes of physical memory you want to emulate.
+# The default is 32MB, most OS's won't need more than that.
+# The maximum amount of memory supported is 2048Mb.
+#=======================================================================
+megs: 32
+
+#=======================================================================
+# VGAROMIMAGE
+# You now need to load a VGA ROM BIOS into C0000.
+#=======================================================================
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+
+#=======================================================================
+# VGA:
+# Here you can specify the display extension to be used. With the value
+# 'none' you can use standard VGA with no extension. Other supported
+# values are 'vbe' for Bochs VBE and 'cirrus' for Cirrus SVGA support.
+#=======================================================================
+vga: extension=vbe
+
+#=======================================================================
+# FLOPPYA:
+# Point this to pathname of floppy image file or device
+# This should be of a bootable floppy(image/device) if you're
+# booting from 'a' (or 'floppy').
+#
+# You can set the initial status of the media to 'ejected' or 'inserted'.
+#   floppya: 2_88=path, status=ejected             (2.88M 3.5" floppy)
+#   floppya: 1_44=path, status=inserted            (1.44M 3.5" floppy)
+#   floppya: 1_2=path, status=ejected              (1.2M  5.25" floppy)
+#   floppya: 720k=path, status=inserted            (720K  3.5" floppy)
+#   floppya: 360k=path, status=inserted            (360K  5.25" floppy)
+#   floppya: 320k=path, status=inserted            (320K  5.25" floppy)
+#   floppya: 180k=path, status=inserted            (180K  5.25" floppy)
+#   floppya: 160k=path, status=inserted            (160K  5.25" floppy)
+#   floppya: image=path, status=inserted           (guess type from image size)
+#
+# The path should be the name of a disk image file.  On Unix, you can use a raw
+# device name such as /dev/fd0 on Linux.  On win32 platforms, use drive letters
+# such as a: or b: as the path.  The parameter 'image' works with image files
+# only. In that case the size must match one of the supported types.
+#=======================================================================
+# Nama image sistem operasi yang akan digunakan bochs
+floppya: 1_44=bin/floppy.img, status=inserted
+
+#=======================================================================
+# BOOT:
+# This defines the boot sequence. Now you can specify up to 3 boot drives,
+# which can be 'floppy', 'disk', 'cdrom' or 'network' (boot ROM).
+# Legacy 'a' and 'c' are also supported.
+# Examples:
+#   boot: floppy
+#   boot: cdrom, disk
+#   boot: network, disk
+#   boot: cdrom, floppy, disk
+#=======================================================================
+boot: floppy
+
+#=======================================================================
+# FLOPPY_BOOTSIG_CHECK: disabled=[0|1]
+# Enables or disables the 0xaa55 signature check on boot floppies
+# Defaults to disabled=0
+# Examples:
+#   floppy_bootsig_check: disabled=0
+#   floppy_bootsig_check: disabled=1
+#=======================================================================
+floppy_bootsig_check: disabled=0
+
+#=======================================================================
+# LOG:
+# Give the path of the log file you'd like Bochs debug and misc. verbiage
+# to be written to. If you don't use this option or set the filename to
+# '-' the output is written to the console. If you really don't want it,
+# make it "/dev/null" (Unix) or "nul" (win32). :^(
+#
+# Examples:
+#   log: ./bochs.out
+#   log: /dev/tty
+#=======================================================================
+# Log bochs, gunakan /dev/null untuk non verbose console log
+log: -
+
+#=======================================================================
+# LOG CONTROLS
+#
+# Bochs now has four severity levels for event logging.
+#   panic: cannot proceed.  If you choose to continue after a panic,
+#          don't be surprised if you get strange behavior or crashes.
+#   error: something went wrong, but it is probably safe to continue the
+#          simulation.
+#   info: interesting or useful messages.
+#   debug: messages useful only when debugging the code.  This may
+#          spit out thousands per second.
+#
+# For events of each level, you can choose to crash, report, or ignore.
+# TODO: allow choice based on the facility: e.g. crash on panics from
+#       everything except the cdrom, and only report those.
+#
+# If you are experiencing many panics, it can be helpful to change
+# the panic action to report instead of fatal.  However, be aware
+# that anything executed after a panic is uncharted territory and can
+# cause bochs to become unstable.  The panic is a "graceful exit," so
+# if you disable it you may get a spectacular disaster instead.
+#=======================================================================
+panic: action=ask
+error: action=report
+info: action=report
+debug: action=ignore
+#pass: action=fatal
+
+#=======================================================================
+# DEBUGGER_LOG:
+# Give the path of the log file you'd like Bochs to log debugger output.
+# If you really don't want it, make it /dev/null or '-'. :^(
+#
+# Examples:
+#   debugger_log: ./debugger.out
+#=======================================================================
+debugger_log: -
+
+#=======================================================================
+# VGA_UPDATE_INTERVAL:
+# Video memory is scanned for updates and screen updated every so many
+# virtual seconds.  The default is 40000, about 25Hz. Keep in mind that
+# you must tweak the 'cpu: ips=N' directive to be as close to the number
+# of emulated instructions-per-second your workstation can do, for this
+# to be accurate.
+#
+# Examples:
+#   vga_update_interval: 250000
+#=======================================================================
+#vga_update_interval: 300000
+vga: update_freq=10
+
+#=======================================================================
+# KEYBOARD_SERIAL_DELAY:
+# Approximate time in microseconds that it takes one character to
+# be transfered from the keyboard to controller over the serial path.
+# Examples:
+#   keyboard_serial_delay: 200
+#=======================================================================
+#keyboard_serial_delay: 250
+
+#=======================================================================
+# KEYBOARD_PASTE_DELAY:
+# Approximate time in microseconds between attempts to paste
+# characters to the keyboard controller. This leaves time for the
+# guest os to deal with the flow of characters.  The ideal setting
+# depends on how your operating system processes characters.  The
+# default of 100000 usec (.1 seconds) was chosen because it works
+# consistently in Windows.
+#
+# If your OS is losing characters during a paste, increase the paste
+# delay until it stops losing characters.
+#
+# Examples:
+#   keyboard_paste_delay: 100000
+#=======================================================================
+#keyboard_paste_delay: 100000
+#keyboard: serial_delay=250, paste_delay:100000
+
+#=======================================================================
+# MOUSE:
+# This option prevents Bochs from creating mouse "events" unless a mouse
+# is  enabled. The hardware emulation itself is not disabled by this.
+# You can turn the mouse on by setting enabled to 1, or turn it off by
+# setting enabled to 0. Unless you have a particular reason for enabling
+# the mouse by default, it is recommended that you leave it off.
+# You can also toggle the mouse usage at runtime (control key + middle
+# mouse button on X11, SDL, wxWidgets and Win32).
+# With the mouse type option you can select the type of mouse to emulate.
+# The default value is 'ps2'. The other choices are 'imps2' (wheel mouse
+# on PS/2), 'serial', 'serial_wheel' and 'serial_msys' (one com port requires
+# setting 'mode=mouse'). To connect a mouse to an USB port, see the 'usb1'
+# option (requires PCI and USB support).
+#
+# Examples:
+#   mouse: enabled=1
+#   mouse: enabled=1, type=imps2
+#   mouse: enabled=1, type=serial
+#   mouse: enabled=0
+#=======================================================================
+mouse: enabled=0
+
+#=======================================================================
+# I440FXSUPPORT:
+# This option controls the presence of the i440FX PCI chipset. You can
+# also specify the devices connected to PCI slots. Up to 5 slots are
+# available now. These devices are currently supported: ne2k, pcivga,
+# pcidev and pcipnic. If Bochs is compiled with Cirrus SVGA support
+# you'll have the additional choice 'cirrus'.
+#
+# Example:
+#   i440fxsupport: enabled=1, slot1=pcivga, slot2=ne2k
+#=======================================================================
+#i440fxsupport: enabled=1
+pci: enabled=1, chipset=i440fx
