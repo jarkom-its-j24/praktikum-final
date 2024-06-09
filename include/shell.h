@@ -5,6 +5,7 @@
 
 void shell();
 void printCWD(byte cwd);
+void parseCommand(char* buf, char* cmd, char arg[2][64]);
 
 void cd(byte* cwd, char* dirname);
 void ls(byte cwd, char* dirname);

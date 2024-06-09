@@ -1,8 +1,6 @@
 #include "shell.h"
 #include "filesystem.h"
 
-void parseCommand(char* buf, char* cmd, char arg[2][64]);
-
 void shell() {
   char buf[64];
   char cmd[64];
