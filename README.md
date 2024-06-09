@@ -384,3 +384,7 @@ Berikut adalah struktur filesystem yang akan digunakan pada test ini.
 - Dikarenakan penggunaan `bcc` dengan mode ANSI C, kalian tidak dapat mendeklarasikan variabel di tengah blok kode atau scope. Variabel harus dideklarasikan di awal blok kode atau scope.
 
 - Selalu jalankan `make` pada direktori `praktikum-final`, bukan pada subdirektori.
+
+- Sedikit sneak peek apa yang akan kalian buat.
+
+  https://github.com/sisop-its-s24/praktikum-final/assets/54766683/10055e0d-7a77-44d5-97f5-376bf976d247
