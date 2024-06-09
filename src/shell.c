@@ -1,4 +1,6 @@
 #include "shell.h"
+#include "kernel.h"
+#include "std_lib.h"
 #include "filesystem.h"
 
 void shell() {
