@@ -1,47 +1,54 @@
 #include "shell.h"
 #include "filesystem.h"
 
-// TODO: 10. Complete shell function
+void parseCommand(char* buf, char* cmd, char arg[2][64]);
+
 void shell() {
   char buf[64];
-  char path[128];
+  char cmd[64];
+  char arg[2][64];
 
   byte cwd = FS_NODE_P_ROOT;
 
   while (true) {
     printString("MengOS:");
-    printCWD(path, cwd);
+    printCWD(cwd);
     printString("$ ");
     readString(buf);
+    parseCommand(buf, cmd, arg);
 
-    // parse buf by space first
-
-    if (strcmp(buf, "ls")) {
-      // add ls utilities here
-    }
-
-    // add more commands here
-
-    else {
-      printString("Invalid command\n");
-    }
+    if (strcmp(cmd, "cd")) cd(&cwd, arg[0]);
+    else if (strcmp(cmd, "ls")) ls(cwd, arg[0]);
+    else if (strcmp(cmd, "mv")) mv(cwd, arg[0], arg[1]);
+    else if (strcmp(cmd, "cp")) cp(cwd, arg[0], arg[1]);
+    else if (strcmp(cmd, "cat")) cat(cwd, arg[0]);
+    else if (strcmp(cmd, "mkdir")) mkdir(cwd, arg[0]);
+    else if (strcmp(cmd, "clear")) clearScreen();
+    else printString("Invalid command\n");
   }
 }
 
 // TODO: 4. Implement printCWD function
-void printCWD(char path[128], byte cwd) {}
+void printCWD(byte cwd) {}
 
-// TODO: 5. Implement ls function
-void ls(char* dirname) {}
+// TODO: 5. Implement parseCommand function
+void parseCommand(char* buf, char* cmd, char arg[2][64]) {}
 
-// TODO: 6. Implement mv function
-void mv(char* src, char* dst) {}
+// TODO: 6. Implement cd function
+void cd(byte* cwd, char* dirname) {}
 
-// TODO: 7. Implement cp function
-void cp(char* filename) {}
+// TODO: 7. Implement ls function
+void ls(byte cwd, char* dirname) {}
 
-// TODO: 8. Implement cat function
-void cat(char* filename) {}
+// TODO: 8. Implement mv function
+void mv(byte cwd, char* src, char* dst) {}
 
-// TODO: 9. Implement mkdir function
-void mkdir(char* dirname) {}
+// TODO: 9. Implement cp function
+void cp(byte cwd, char* src, char* dst) {}
+
+// TODO: 10. Implement cat function
+void cat(byte cwd, char* filename) {}
+
+// TODO: 11. Implement mkdir function
+void mkdir(byte cwd, char* dirname) {}
+

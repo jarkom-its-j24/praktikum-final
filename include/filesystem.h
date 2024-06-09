@@ -21,8 +21,8 @@ struct map_fs {
 };
 
 struct node_item {
-  byte parent_node_index;
-  byte data_item_index;
+  byte parent_index;
+  byte data_index;
   char node_name[MAX_FILENAME];
 };
 
@@ -39,10 +39,10 @@ struct data_fs {
 };
 
 struct file_metadata {
-  char node_name[MAX_FILENAME];
   byte parent_index;
   unsigned int filesize;
-  byte* buffer;
+  char node_name[MAX_FILENAME];
+  byte buffer[FS_MAX_SECTOR * SECTOR_SIZE];
 };
 
 enum fs_return {
@@ -52,7 +52,7 @@ enum fs_return {
   FS_R_NODE_NOT_FOUND = 1,
   FS_R_TYPE_IS_DIRECTORY = 2,
 
-  FS_W_FILE_ALREADY_EXISTS = 3,
+  FS_W_NODE_ALREADY_EXISTS = 3,
   FS_W_NOT_ENOUGH_SPACE = 4,
   FS_W_NO_FREE_NODE = 5,
   FS_W_NO_FREE_DATA = 6,

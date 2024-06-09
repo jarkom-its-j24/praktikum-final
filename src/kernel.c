@@ -1,9 +1,10 @@
+#include "shell.h"
 #include "kernel.h"
 #include "filesystem.h"
-#include "shell.h"
 
 void main() {
   fsInit();
+  clearScreen();
   shell();
 }
 
@@ -33,7 +34,7 @@ void readString(char* buf) {
     }
   }
 
-  buf[i] = '\0';
+  buf[i - 1] = '\0';
   printString("\n");
 }
 
@@ -54,12 +55,12 @@ void clearScreen() {
 }
 
 void readSector(byte* buf, int sector) {
-  int ah = 0x02;                // read sector service number
-  int al = 0x01;                // number of sectors to read
-  int ch = 0x00;                // cylinder number
-  int cl = mod(sector, 18) + 1; // sector number
-  int dh = div(sector, 18);     // head number
-  int dl = 0x00;                // drive number
+  int ah = 0x02;                    // read sector service number
+  int al = 0x01;                    // number of sectors to read
+  int ch = div(sector, 36);         // cylinder number
+  int cl = mod(sector, 18) + 1;     // sector number
+  int dh = mod(div(sector, 18), 2); // head number
+  int dl = 0x00;                    // drive number
 
   interrupt(
     0x13,

@@ -4,12 +4,13 @@
 #include "std_type.h"
 
 void shell();
-void printCWD(char path[128], byte cwd);
+void printCWD(byte cwd);
 
-void ls(char* dirname);
-void mv(char* src, char* dst);
-void cp(char* filename);
-void cat(char* filename);
-void mkdir(char* dirname);
+void cd(byte* cwd, char* dirname);
+void ls(byte cwd, char* dirname);
+void mv(byte cwd, char* src, char* dst);
+void cp(byte cwd, char* src, char* dst);
+void cat(byte cwd, char* filename);
+void mkdir(byte cwd, char* dirname);
 
 #endif // __SHELL_H__
