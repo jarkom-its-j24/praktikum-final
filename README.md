@@ -16,7 +16,7 @@ Pada final praktikum, kita akan melanjutkan `task-4` dari praktikum modul 4 yang
 
 Penjelasan pada praktikum final akan sering menggunakan angka heksadesimal. Penggunaan angka heksadesimal ditandai dengan prefix `0x`. Jika kalian belum terbiasa dengan angka heksadesimal, kalian dapat menggunakan kalkulator yang mendukung mode heksadesimal atau menggunakan konversi angka heksadesimal ke desimal.
 
-### Sturktur Disk
+### Struktur Disk
 
 Jika kalian sudah melewati modul 4, pasti sudah tidak asing lagi dengan struktur disk yang akan kita gunakan. Disk yang kita gunakan terdiri dari beberapa blok. Selanjutnya blok akan disebut sektor. Setiap sektor memiliki ukuran 512 bytes. Sektor pertama akan digunakan sebagai boot sector, yang berisi hasil kompilasi dari `bootloader.asm`. Sektor kedua hingga sektor ke-15 akan digunakan untuk menyimpan kode teks dari kernel yang kita buat.
 
@@ -109,7 +109,7 @@ void readSector(byte* buf, int sector) {
 }
 ```
 
-- Interupt vector yang akan digunakan adalah `0x13` untuk melakukan operasi disk I/O.
+- Interrupt vector yang akan digunakan adalah `0x13` untuk melakukan operasi disk I/O.
 
 - Register `ah` akan diisi dengan `0x02` yang menunjukkan operasi `read`.
 
@@ -168,7 +168,7 @@ Langkah-langkah yang harus dilakukan pada fungsi `fsRead` adalah sebagai berikut
    - Set `metadata->filesize` dengan 0.
    - Lakukan iterasi i dari 0 hingga `FS_MAX_SECTOR`
    - Jika data index ke-i dari node yang ditemukan adalah `0x00`, maka hentikan iterasi.
-   - Lakukan `readSector` untuk membaca data dari sektor yang ditunjuk oleh data pada _data index_ dengan sectors ke-i disimpan ke dalam `metadadta->buffer + i * SECTOR_SIZE`.
+   - Lakukan `readSector` untuk membaca data dari sektor yang ditunjuk oleh data pada _data index_ dengan sectors ke-i disimpan ke dalam `metadata->buffer + i * SECTOR_SIZE`.
    - Tambahkan `SECTOR_SIZE` ke `metadata->filesize`.
 
 6. Set `status` dengan `FS_R_SUCCESS`.
@@ -377,7 +377,7 @@ Berikut adalah struktur filesystem yang akan digunakan pada test ini.
 
 ## Tips
 
-- Untuk debugging filesystem, kalian dapat mengecek menggunakan hexedit pada Linux atau HxD pada Windows. Dengan informasi sektor map `0x100`, node `0x101` dan `0x102`, serta data `0x103`, kalian dapat mengetahui data yang tersimpan pada filesystem. Untuk mendapatkan offset byte dari sektor, kalian dapat menggunakan rumus `offset = sektor * 512` atau `offset = sektor * 0x200`. Sebagai contoh untuk mengetahui isi dari filesystem map, dapat membuka HxD dan hexedit dengan menekan `Ctrl + G` dan memasukkan offset byte dari sektor map (0x100 \* 0x200 = 0x20000).
+- Untuk debugging filesystem, kalian dapat mengecek menggunakan hexedit pada Linux atau HxD pada Windows. Dengan informasi sektor map `0x100`, node `0x101` dan `0x102`, serta data `0x103`, kalian dapat mengetahui data yang tersimpan pada filesystem. Untuk mendapatkan offset byte dari sektor, kalian dapat menggunakan rumus `offset = sektor * 512` atau `offset = sektor * 0x200`. Sebagai contoh untuk mengetahui isi dari filesystem map, dapat membuka HxD dan hexedit dengan menekan `Ctrl + G` dan memasukkan offset byte dari sektor map (`0x100 * 0x200 = 0x20000`).
 
   ![tips-1](./assets/tips-1.png)
 

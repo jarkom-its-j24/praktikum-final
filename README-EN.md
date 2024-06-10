@@ -107,7 +107,7 @@ void readSector(byte* buf, int sector) {
 }
 ```
 
-- The interupt vector to be used is `0x13` to perform disk I/O operations.
+- The interrupt vector to be used is `0x13` to perform disk I/O operations.
 
 - The `ah` register will be filled with `0x02` indicating a `read` operation.
 
@@ -166,7 +166,7 @@ The steps to perform in the `fsRead` function are as follows.
    - Set `metadata->filesize` with 0.
    - Perform i iterations from 0 to `FS_MAX_SECTOR`
    - If the i-th data index of the found node is `0x00`, then stop iterating.
-   - Perform `readSector` to read data from the sector pointed by the data at the _data index_ with the i-th sector stored into `metadadta->buffer + i * SECTOR_SIZE`.
+   - Perform `readSector` to read data from the sector pointed by the data at the _data index_ with the i-th sector stored into `metadata->buffer + i * SECTOR_SIZE`.
    - Add `SECTOR_SIZE` to `metadata->filesize`.
 
 6. Set `status` to `FS_R_SUCCESS`.
@@ -375,7 +375,7 @@ Here is the filesystem structure that will be used in this test.
 
 ## Tips
 
-- For filesystem debugging, you can check using hexedit on Linux or HxD on Windows. With the sector map information `0x100`, nodes `0x101` and `0x102`, and data `0x103`, you can find out the data stored on the filesystem. To get the byte offset of the sector, you can use the formula `offset = sector * 512` or `offset = sector * 0x200`. For example to find out the contents of the filesystem map, you can open HxD and hexedit by pressing `Ctrl + G` and enter the byte offset of the sector map (0x100 \* 0x200 = 0x20000).
+- For filesystem debugging, you can check using hexedit on Linux or HxD on Windows. With the sector map information `0x100`, nodes `0x101` and `0x102`, and data `0x103`, you can find out the data stored on the filesystem. To get the byte offset of the sector, you can use the formula `offset = sector * 512` or `offset = sector * 0x200`. For example to find out the contents of the filesystem map, you can open HxD and hexedit by pressing `Ctrl + G` and enter the byte offset of the sector map (`0x100 * 0x200 = 0x20000`).
 
   ![tips-1](./assets/tips-1.png)
 
