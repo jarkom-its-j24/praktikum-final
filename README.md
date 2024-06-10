@@ -2,6 +2,8 @@
 
 Apa??? Bikin kernel lagi???? :(
 
+[Looking for the English version?](./README-EN.md)
+
 ## Pengenalan
 
 Pada final praktikum, kita akan melanjutkan `task-4` dari praktikum modul 4 yang sebelumnya. Kali ini, kita akan membuat sebuah filesystem sederhana yang dapat digunakan untuk menyimpan file-file yang kita buat. Filesystem yang akan kita buat ini akan menggunakan metode penyimpanan data yang sederhana, yaitu dengan menyimpan data file ke dalam blok-blok yang telah disediakan oleh filesystem. Jika kalian sudah tidak sabar ingin langsung mengerjakan task-task yang ada, bisa search `TODO` pada workspace ini. Berikut adalah gambaran yang akan kalian kerjakan pada final praktikum kali ini.
@@ -12,7 +14,7 @@ Pada final praktikum, kita akan melanjutkan `task-4` dari praktikum modul 4 yang
 
 ## Pencerdasan
 
-Penjelasan pada praktikum final akan sering menggunakan angka heksadesimal. Penggunaan angka heksadesimal ditandai dengan prefix `0x`. Berikut adalah beberapa contoh angka heksadesimal yang sering digunakan. Jika kalian belum terbiasa dengan angka heksadesimal, kalian dapat menggunakan kalkulator yang mendukung mode heksadesimal atau menggunakan konversi angka heksadesimal ke desimal.
+Penjelasan pada praktikum final akan sering menggunakan angka heksadesimal. Penggunaan angka heksadesimal ditandai dengan prefix `0x`. Jika kalian belum terbiasa dengan angka heksadesimal, kalian dapat menggunakan kalkulator yang mendukung mode heksadesimal atau menggunakan konversi angka heksadesimal ke desimal.
 
 ### Sturktur Disk
 
@@ -64,7 +66,7 @@ Berikut adalah penjelasan dari setiap item pada node.
 
   Sebagai contoh, pada node index ke-0, nilai dari kolom kedua adalah `0x00`. Hal tersebut berarti informasi data dari file tersebut bisa diakses pada komponen data index ke-0. Sedangkan pada node index ke-1, nilai dari kolom kedua adalah `0xFF`. Hal tersebut berarti node tersebut merupakan direktori.
 
-- Node name: kolom ketiga hingga kolom terakhir pada item node berguna sebagai nama dari node tersebut. Nama dari node akan memiliki panjang maksimal 13 karakter (karakter terakhir adalah karakter null).
+- **Node name**: kolom ketiga hingga kolom terakhir pada item node berguna sebagai nama dari node tersebut. Nama dari node akan memiliki panjang maksimal 13 karakter (karakter terakhir adalah karakter null).
 
 ### Struktur Filesystem Data
 
