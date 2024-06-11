@@ -6,10 +6,10 @@ asm:
 	nasm -f as86 src/kernel.asm -o bin/kernel_asm.o
 
 library:
-	bcc -ansi -c src/std_lib.c -o bin/std_lib.o -I../include
-	bcc -ansi -c src/filesystem.c -o bin/filesystem.o -I../include
-	bcc -ansi -c src/shell.c -o bin/shell.o -I../include
-	bcc -ansi -c src/kernel.c -o bin/kernel_c.o -I../include
+	bcc -ansi -c src/std_lib.c -o bin/std_lib.o -Iinclude
+	bcc -ansi -c src/filesystem.c -o bin/filesystem.o -Iinclude
+	bcc -ansi -c src/shell.c -o bin/shell.o -Iinclude
+	bcc -ansi -c src/kernel.c -o bin/kernel_c.o -Iinclude
 
 link:
 	ld86 -o bin/kernel.bin -d bin/kernel_c.o bin/kernel_asm.o bin/std_lib.o bin/filesystem.o bin/shell.o

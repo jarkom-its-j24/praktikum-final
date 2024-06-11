@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define IMAGE_NAME "answer/bin/floppy.img"
+#define IMAGE_NAME "bin/floppy.img"
 #define SECTOR_SIZE 512
 #define MAX_SECTOR 2880
 #define ROOT_INDEX 0xFF
